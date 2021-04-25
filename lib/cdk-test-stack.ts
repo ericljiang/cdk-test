@@ -17,7 +17,7 @@ export class CdkTestStack extends cdk.Stack {
       pipelineName: 'CdkTestPipeline',
       cloudAssemblyArtifact: cloudAssemblyArtifact,
       sourceAction: new codepipeline_actions.GitHubSourceAction({
-        actionName: 'GitHub foobar',
+        actionName: 'GitHub',
         output: sourceArtifact,
         oauthToken: SecretValue.secretsManager('GitHubCodePipelineToken'),
         trigger: codepipeline_actions.GitHubTrigger.POLL,
