@@ -3,6 +3,7 @@ import * as apigateway from "@aws-cdk/aws-apigatewayv2";
 import * as dynamodb from "@aws-cdk/aws-dynamodb";
 import * as lambda from "@aws-cdk/aws-lambda";
 import { LambdaWebSocketIntegration } from "@aws-cdk/aws-apigatewayv2-integrations";
+import * as path from 'path';
 
 export class MyApplication extends Stage {
   constructor(scope: Construct, id: string, stageName: string, props?: StageProps) {
@@ -21,17 +22,17 @@ class MyStack extends Stack {
 
     const onConnectFunction = new lambda.Function(this, "OnConnect", {
       runtime: lambda.Runtime.NODEJS_14_X,
-      code: lambda.Code.fromAsset("asset/on-connect"),
+      code: lambda.Code.fromAsset(path.join(__dirname, '../asset/on-connect')),
       handler: "index.handler"
     }).addEnvironment("TABLE_NAME", connectionsTable.tableName);;
     const onDisconnectFunction = new lambda.Function(this, "OnDisconnect", {
       runtime: lambda.Runtime.NODEJS_14_X,
-      code: lambda.Code.fromAsset("asset/on-disconnect"),
+      code: lambda.Code.fromAsset(path.join(__dirname, '../asset/on-disconnect')),
       handler: "index.handler"
     }).addEnvironment("TABLE_NAME", connectionsTable.tableName);;
     const pushGameEventFunction = new lambda.Function(this, "PushGameEvent", {
       runtime: lambda.Runtime.NODEJS_14_X,
-      code: lambda.Code.fromAsset("asset/push-game-event"),
+      code: lambda.Code.fromAsset(path.join(__dirname, '../asset/push-game-event')),
       handler: "index.handler"
     }).addEnvironment("TABLE_NAME", connectionsTable.tableName);;
 
